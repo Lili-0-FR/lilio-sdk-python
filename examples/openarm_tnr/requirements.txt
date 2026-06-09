@@ -1,0 +1,23 @@
+# Lilio SDK — install from the repo root
+lilio @ file://../..
+
+# Standard dependencies
+numpy
+opencv-python
+matplotlib
+scipy
+
+# Robot control
+pynput
+loop-rate-limiters
+
+# Dashboard device server
+fastapi
+uvicorn[standard]
+
+# NOTE: the following packages must be installed separately —
+#       they require hardware-specific native libraries:
+#
+#   placo          — pip install placo
+#   pyzed          — follow the Stereolabs ZED SDK installation guide
+#   openarm_can    — install from the OpenArm CAN firmware repo
