@@ -50,7 +50,7 @@ from OA_interface import OpenArmInterface
 from OA_placo import OpenArmPlaco
 from zed_camera import ZEDMiniCamera
 from oa_utils import (
-    capture_roi, save_skill_demo, stream_action_plans,
+    capture_roi, prompt_input, save_skill_demo, stream_action_plans,
     move_to_cart_threaded, plot_tracking,
 )
 
@@ -117,8 +117,6 @@ class OpenArmController:
         self._save_demo_requested = False
         self._execute_requested   = False
         self._inputting           = False
-        self._pending_skill_name  = None
-        self._pending_guideline   = None
         self._skill_chain:  list  = []
         self._replaying           = False
 
@@ -335,18 +333,15 @@ class OpenArmController:
             if self._save_demo_requested:
                 self._save_demo_requested = False
                 self._inputting = True
-                name  = self._pending_skill_name
-                guide = self._pending_guideline
-                self._pending_skill_name = self._pending_guideline = None
+
                 save_skill_demo(self.traj, self.session,
-                                skill_name=name, guideline=guide)
+                                skill_name=None, guideline=None)
                 self._inputting = False
 
             if self._execute_requested:
                 self._execute_requested = False
                 self._inputting = True
-                skill_name = self._pending_skill_name
-                self._pending_skill_name = self._pending_guideline = None
+                skill_name =  prompt_input("Skill name: ")
                 self._inputting = False
                 if skill_name:
                     while not self._plan_queue.empty():
@@ -359,11 +354,11 @@ class OpenArmController:
                                         q_current=self.OAI.get_state()["q_state"])
 
             # Auto-advance skill chain
-            if (self._skill_chain
-                    and not self._execute_requested
-                    and self._plan_queue.empty()):
-                self._pending_skill_name = self._skill_chain.pop(0)
-                self._execute_requested  = True
+            # if (self._skill_chain
+            #         and not self._execute_requested
+            #         and self._plan_queue.empty()):
+            #     self._pending_skill_name = self._skill_chain.pop(0)
+            #     self._execute_requested  = True
 
             if not self._plan_queue.empty():
                 self._replay_plan(self._plan_queue.get_nowait())
