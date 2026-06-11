@@ -5,7 +5,9 @@ Official Python SDK for the [Lili-O](https://lili-o.com) robot API.
 ## Installation
 
 ```bash
-pip install lilio-think
+git clone https://github.com/lili-o/lilio-sdk-python.git
+cd lilio-sdk-python
+pip install -e .
 ```
 
 ## Authentication
@@ -26,32 +28,11 @@ client = LilioClient(api_key="lilio_sk_...", base_url="http://localhost:8000")
 
 ## Quick start
 
-```python
-import json
-import numpy as np
-import cv2
-from lilio import LilioClient
+Edit the `api_key` in [`examples/quickstart.py`](examples/quickstart.py), then run:
 
-client = LilioClient(api_key="lilio_sk_...")
-
-with open("config_vision.json") as f:
-    camera_calibration = json.load(f)["camera_calibration"]
-
-img_demo_left  = cv2.cvtColor(cv2.imread("left_0000.png"),  cv2.COLOR_BGR2RGB)
-img_demo_right = cv2.cvtColor(cv2.imread("right_0000.png"), cv2.COLOR_BGR2RGB)
-img_inf_left   = cv2.cvtColor(cv2.imread("left_0001.png"),  cv2.COLOR_BGR2RGB)
-img_inf_right  = cv2.cvtColor(cv2.imread("right_0001.png"), cv2.COLOR_BGR2RGB)
-traj = np.load("trajectory.npy", allow_pickle=True)
-
-with client.session(camera_calibration) as session:
-    # Demo phase
-    session.set_roi(img_demo_left, img_demo_right, box=[640, 150, 1060, 680])
-    session.save_skill("open_coffee_machine", traj)
-
-    # Inference phase
-    plan = session.get_action_plan("open_coffee_machine", img_inf_left, img_inf_right)
-    if plan:
-        print("bottleneck pose:", plan[0])
+```bash
+cd examples
+python quickstart.py
 ```
 
 ## API reference
