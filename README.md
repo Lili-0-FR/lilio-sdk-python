@@ -74,3 +74,7 @@ except LilioError as e:
 ## Examples
 
 See the [`examples/`](examples/) folder for a full working script and robot-specific integrations.
+
+## Contributing
+
+The best way to contribute is to open a PR and share what you're building with Lili-O — new robot integrations, example scripts, or improvements to the SDK are all welcome. If this project is useful to you, a star on GitHub goes a long way.
