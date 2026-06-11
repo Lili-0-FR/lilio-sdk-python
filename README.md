@@ -1,6 +1,6 @@
 # lili-o-sdk-python
 
-Official Python SDK for the [Lili-O](https://lili-o.com) robot API.
+Official Python SDK for the [Lili-O](https://www.lili-o.com) robot API.
 
 ## Installation
 
