@@ -82,21 +82,8 @@ pip install placo
 ## Step 2 — Set up the robot model
 
 The controller needs the OpenArm URDF and collision files.
-They live inside `lilio_move`:
 
-```bash
-export LILIO_MOVE_ROOT=/path/to/lilio_move   # default: /home/master/LILIO/lilio_move
-```
-
-If `lilio_move` is at the default path you don't need to set anything.
-
-Expected files:
-```
-$LILIO_MOVE_ROOT/robot_model/openarm_description/openarm_placo.urdf
-$LILIO_MOVE_ROOT/robot_model/openarm_description/collision.json
-```
-
----
+You can find them on openarm documentation
 
 ## Step 3 — Install the Python dependencies
 
